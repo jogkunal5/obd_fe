@@ -1,0 +1,23 @@
+<div *ngIf="loading">Loading employees...</div>
+<div *ngIf="error">{{ error }}</div>
+
+<table *ngIf="!loading && employees.length">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Designation</th>
+            <th>Joining Date</th>
+            <th>Department</th>
+            <th>Supervisor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let emp of employees">
+            <td>{{ emp.emp_id }}</td>
+            <td>{{ emp.designation }}</td>
+            <td>{{ emp.joining_date }}</td>
+            <td>{{ emp.department_id }}</td>
+            <td>{{ emp.supervisor_id || 'N/A' }}</td>
+        </tr>
+    </tbody>
+</table>
