@@ -1,0 +1,54 @@
+<div class="card">
+    <p-toolbar styleClass="mb-6">
+        <ng-template #start>
+            <p-button label="New Task" icon="pi pi-plus" severity="danger" class="mr-2" (onClick)="openNewTaskDialog()" />
+            <!-- <p-button severity="secondary" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedTasks()" [disabled]="!selectedTasks || !selectedTasks.length" /> -->
+        </ng-template>
+
+        <ng-template #end>
+            <!-- <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" /> -->
+        </ng-template>
+    </p-toolbar>
+
+    <p-table
+        #dt
+        [value]="tasks()"
+        [paginator]="true"
+        responsiveLayout="scroll"
+        [rows]="10"
+        [(selection)]="selectedTasks"
+        dataKey="task_id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} tasks"
+        [rowHover]="true"
+        [showGridlines]="true"
+        [tableStyle]="{ 'min-width': '60rem' }"
+    >
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="task_name">Task Name <p-sortIcon field="task_name" /></th>
+                <th pSortableColumn="department">Department <p-sortIcon field="department" /></th>
+                <th pSortableColumn="assigned_to">Assigned To <p-sortIcon field="assigned_to" /></th>
+                <th pSortableColumn="due_date">Due Date <p-sortIcon field="due_date" /></th>
+                <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
+                <th>Actions</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-task>
+            <tr>
+                <td>{{ task.task_name }}</td>
+                <td>{{ task.department }}</td>
+                <td>{{ task.assigned_to }}</td>
+                <td>{{ task.due_date | date }}</td>
+                <td>
+                    <!-- <p-tag [value]="task.status" [severity]="getStatusSeverity(task.status)" /> -->
+                </td>
+                <td>
+                    <!-- <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" (click)="editTask(task)" /> -->
+                    <!-- <p-button icon="pi pi-trash" severity="danger" [rounded]="true" (click)="deleteTask(task)" /> -->
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <app-task-dialog [visible]="taskDialogVisible" [task]="task" [statuses]="statuses" [departments]="departments" [employees]="employees" [submitted]="submitted" (save)="saveTask()" (close)="hideDialog()"> </app-task-dialog>
+</div>

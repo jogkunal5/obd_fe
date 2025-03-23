@@ -1,0 +1,26 @@
+<p-dialog [(visible)]="visible" [style]="{ width: '600px' }" header="Create New Task" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [baseZIndex]="10000">
+    <ng-template #content>
+        <div class="flex flex-col gap-6">
+            <div>
+                <label for="task_name" class="block font-bold mb-3">Task Name</label>
+                <input type="text" pInputText id="task_name" [(ngModel)]="task.task_name" required fluid />
+                <small class="text-red-500" *ngIf="submitted && !task.task_name">Task name is required.</small>
+            </div>
+
+            <div>
+                <label for="description" class="block font-bold mb-3">Description</label>
+                <textarea id="description" pTextarea [(ngModel)]="task.description" rows="3" fluid></textarea>
+            </div>
+
+            <div>
+                <label for="due_date" class="block font-bold mb-3">Due Date</label>
+                <p-calendar [(ngModel)]="task.due_date" showIcon inputId="due_date" fluid></p-calendar>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #footer>
+        <p-button label="Cancel" icon="pi pi-times" severity="secondary" (click)="hideDialog()" />
+        <p-button label="Save" icon="pi pi-check" severity="danger" (click)="saveTask()" />
+    </ng-template>
+</p-dialog>
